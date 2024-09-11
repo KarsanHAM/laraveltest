@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-
-    protected $attributes = [
-      'bl_release_date'
-    ];
 }

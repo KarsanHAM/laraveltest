@@ -16,6 +16,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->timestamp('bl_release_date')->nullable();
+            $table->integer('bl_release_user')->nullable();
+            $table->boolean('freight_payer_self');
+            $table->string('contract_number');
+            $table->string('bl_number')->nullable();
         });
     }
 

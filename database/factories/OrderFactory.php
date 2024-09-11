@@ -17,7 +17,8 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'freight_payer_self' => fake()->boolean(),
+            'contract_number' => fake()->numberBetween(1, 100000)
         ];
     }
 }
