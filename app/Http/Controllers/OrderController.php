@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\BillOfLadingReleased;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -13,9 +15,12 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $orders = Order::all();
+        return view('order.index', [
+            'orders' => $orders,
+        ]);
     }
 
     /**
@@ -36,7 +41,9 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        //
+        $order = Order::findOrFail($request->id);
+
+        BillOfLadingReleased::dispatchIf(!is_null($order->bl_release_date), $order);
     }
 
     /**
@@ -70,7 +77,17 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        if($order->bl_release_date === null) {
+            $order-> bl_release_date = now();
+            $order->save();
+        } elseif (!$order->bl_release_date === null) {
+            $order-> bl_release_date = null;
+            $order->save();
+        }
+//        {
+//            dd('a GO was already given to release this Orders Bill of Lading');
+//        }
+
     }
 
     /**
