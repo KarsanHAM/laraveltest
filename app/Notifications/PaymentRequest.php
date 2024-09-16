@@ -53,7 +53,7 @@ class PaymentRequest extends Notification
                     ->line("freight_payer_self: {$order->freight_payer_self}")
                     ->line("contract_number: {$order->contract_number}")
                     ->line("bl_number: {$order->bl_number}")
-                    ->line("please pay the freight invoice so we can request it from the carrier and forward it to you:")
+                    ->line("Please pay the freight invoice so we can request it from the carrier and forward it to you:")
                     ->action("Pay freight invoice", url("/"));
     }
 
