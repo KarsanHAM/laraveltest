@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->timestamp('bl_release_date')->nullable();
-            $table->integer('bl_release_user')->nullable();
+            $table->integer('bl_release_user_id')->nullable();
             $table->boolean('freight_payer_self');
             $table->string('contract_number');
             $table->string('bl_number')->nullable();
