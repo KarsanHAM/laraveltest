@@ -48,9 +48,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $order = Order::findOrFail($request->id);
-
-        BillOfLadingReleased::dispatchIf(!is_null($order->bl_release_date), $order);
+        //
     }
 
     /**
