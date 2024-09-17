@@ -10,7 +10,6 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @foreach($orders as $order)
-                        @if($order->bl_release_date === null && $order->freight_payer_self === 0)
                         <li> Order with ID: {{$order->id}},
                             <form name="addBillOfLading"
                                   action="{{route('orders.update', $order->id)}}"
@@ -20,7 +19,6 @@
                                 <button type="submit"> Add Bill of Lading</button>
                             </form>
                         </li>
-                        @endif
                     @endforeach
                 </div>
             </div>

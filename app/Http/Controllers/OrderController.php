@@ -8,6 +8,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Expr\Cast\Object_;
 
 class OrderController extends Controller
@@ -19,7 +20,11 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::all();
+        $orders = DB::table("orders")
+            ->where("bl_release_date", '=', null)
+            ->where('freight_payer_self', '=', false)
+            ->get();
+
         return view('order.index', [
             'orders' => $orders,
         ]);
