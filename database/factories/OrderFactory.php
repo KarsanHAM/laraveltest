@@ -18,7 +18,8 @@ class OrderFactory extends Factory
     {
         return [
             'freight_payer_self' => fake()->boolean(),
-            'contract_number' => fake()->numberBetween(1, 100000)
+            'contract_number' => fake()->numberBetween(1, 100000),
+            'bl_number' => fake()->numberBetween(1, 100000)
         ];
     }
 }

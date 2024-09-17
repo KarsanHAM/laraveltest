@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateOrderRequest;
 use illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class OrderController extends Controller
 {
@@ -73,21 +74,21 @@ class OrderController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Release the bill of lading for the given order.
      *
-     * @param  \App\Http\Requests\UpdateOrderRequest  $request
      * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateOrderRequest $request, Order $order)
+    public function releaseBillOfLading(Order $order)
     {
         if($order->bl_release_date === null && $order->freight_payer_self === 0) {
             $order->bl_release_date = now();
             $order->bl_release_user_id = Auth::user()->id;
             $order->save();
             BillOfLadingReleased::dispatch($order);
+            return redirect()->route('orders.index')->with('message', 'Go to release Bill of Lading successfully given, the consignee will receive a payment request for the freight invoice');
         } elseif (!$order->bl_release_date === null) {
-           dd('the Bill Of Lading for this order has already received a go for release');
+           dd('The Bill Of Lading for this order has already received a go for release');
         }
     }
 
