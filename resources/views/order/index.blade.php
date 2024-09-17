@@ -16,7 +16,7 @@
                                   method="POST">
                                 {{csrf_field()}}
                                 @method('PATCH')
-                                <button type="submit"> Release Bill of Lading</button>
+                                <button type="submit"> Give go to release Bill of Lading</button>
                             </form>
                         </li>
                     @endforeach

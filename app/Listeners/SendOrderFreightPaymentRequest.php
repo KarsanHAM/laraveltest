@@ -5,13 +5,13 @@ namespace App\Listeners;
 use App\Events\BillOfLadingReleased;
 use App\Models\Order;
 use App\Models\User;
-use App\Notifications\PaymentRequest;
+use App\Notifications\OrderFreightPaymentRequest;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Auth;
 
-class SendOrderPaymentRequest implements ShouldQueue
+class SendOrderFreightPaymentRequest implements ShouldQueue
 {
     /**
      * Create the event listener.
@@ -31,6 +31,6 @@ class SendOrderPaymentRequest implements ShouldQueue
      */
     public function handle(BillOfLadingReleased $event)
     {
-        Auth::user()->notify(New PaymentRequest($event->order));
+        Auth::user()->notify(New OrderFreightPaymentRequest($event->order));
     }
 }
