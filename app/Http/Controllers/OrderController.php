@@ -8,6 +8,7 @@ use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class OrderController extends Controller
 {
@@ -78,11 +79,11 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        if($order->bl_release_date === null && $order->freight_payer_self === false) {
+        if($order->bl_release_date === null && $order->freight_payer_self === 0) {
             $order->bl_release_date = now();
-            $order->bl_release_user_id = Auth::user()->getAuthIdentifier();
+            $order->bl_release_user_id = Auth::user()->id;
             $order->save();
-            $this->dispatch(BillOfLadingReleased::dispatch($order));
+            BillOfLadingReleased::dispatch($order);
         } elseif (!$order->bl_release_date === null) {
            dd('the Bill Of Lading for this order has already received a go for release');
         }

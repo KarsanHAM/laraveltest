@@ -50,7 +50,6 @@ class User extends Authenticatable
      */
     public function routeNotificationForMail($notification)
     {
-        // Return email address only...
-        return 'ron@hellocontainer.com';
+        return 'pipo@hellocontainer.com';
     }
 }
