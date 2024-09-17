@@ -19,13 +19,13 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = DB::table("orders")
+        $unreleasedSelfContractedOrders = DB::table("orders")
             ->where("bl_release_date", '=', null)
             ->where('freight_payer_self', '=', false)
             ->get();
 
         return view('order.index', [
-            'orders' => $orders,
+            'unreleasedSelfContractedOrders' => $unreleasedSelfContractedOrders,
         ]);
     }
 

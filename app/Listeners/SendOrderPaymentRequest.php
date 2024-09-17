@@ -31,7 +31,6 @@ class SendOrderPaymentRequest implements ShouldQueue
      */
     public function handle(BillOfLadingReleased $event)
     {
-        $user = Auth::user();
-        $user->notify(New PaymentRequest($event->order));
+        Auth::user()->notify(New PaymentRequest($event->order));
     }
 }
