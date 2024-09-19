@@ -6,10 +6,12 @@ use App\Events\BillOfLadingReleased;
 use App\Models\Order;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
+use App\Models\User;
 use illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Laravel\SerializableClosure\UnsignedSerializableClosure;
 
 class OrderController extends Controller
 {
@@ -24,9 +26,9 @@ class OrderController extends Controller
     }
 
     /**
-     * Display a listing of the orders with no Bill of Lading.
+     * Return a listing of the orders with no Bill of Lading.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function unreleasedOrdersIndex(Request $request)
     {

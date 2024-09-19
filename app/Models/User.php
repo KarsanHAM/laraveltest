@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -51,5 +52,14 @@ class User extends Authenticatable
     public function routeNotificationForMail($notification)
     {
         return 'consignee@consignee.com';
+    }
+
+    /**
+     * Return all of the orders for which the user in question released the Bill of Lading.
+     *
+     */
+    public function releasedOrdersWithBl()
+    {
+       return $this->hasMany(Order::class, 'bl_release_user_id');
     }
 }
