@@ -18,7 +18,17 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function Index(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display a listing of the orders with no Bill of Lading.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function unreleasedOrdersIndex(Request $request)
     {
         $unreleasedSelfContractedOrders = DB::table("orders")
             ->where("bl_release_date", '=', null)

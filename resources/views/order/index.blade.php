@@ -22,7 +22,7 @@
                     @foreach($unreleasedSelfContractedOrders as $unreleasedSelfContractedOrder)
                         <li> Order with ID: {{$unreleasedSelfContractedOrder->id}},
                             <form name="addBillOfLading"
-                                  action="{{route('orders.update', $unreleasedSelfContractedOrder->id)}}"
+                                  action="{{route('orders.releaseBillOfLading', $unreleasedSelfContractedOrder->id)}}"
                                   method="POST">
                                 {{csrf_field()}}
                                 @method('PATCH')
