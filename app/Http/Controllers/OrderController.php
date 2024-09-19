@@ -98,9 +98,15 @@ class OrderController extends Controller
             $order->bl_release_user_id = Auth::user()->id;
             $order->save();
             BillOfLadingReleased::dispatch($order);
-            return redirect()->route('orders.index')->with('message', 'Go to release Bill of Lading successfully given, the consignee will receive a payment request for the freight invoice');
+            return redirect()->route('orders.unreleasedOrdersIndex')
+                ->with('message', 'Go to release Bill of Lading successfully given,
+                the consignee will receive a payment request for the freight invoice');
         } elseif (!$order->bl_release_date === null) {
-           dd('The Bill Of Lading for this order has already received a go for release');
+            return redirect()->route('orders.unreleasedOrdersIndex')
+                ->with('message', 'The Bill Of Lading for this order has already received a go for release');
+        } elseif (!$order->freight_payer_self === 0) {
+            return redirect()->route('orders.unreleasedOrdersIndex')
+                ->with('message', 'This order does not belong to a Hello Container contract');
         }
     }
 
