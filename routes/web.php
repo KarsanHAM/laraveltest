@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Test\TestOrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +32,7 @@ Route::middleware('auth')->group(function () {
 
 route::get('/orders', [OrderController::class, 'unreleasedOrdersIndex'])->name('orders.unreleasedOrdersIndex');
 route::patch('/orders/{order}', [OrderController::class, 'releaseBillOfLading'])->name('orders.releaseBillOfLading');
+
+route::get('/test/orders/{order}', [TestOrderController::class, 'testReleaseBillOfLading'])->name('orders.testReleaseBillOfLading');
 
 require __DIR__.'/auth.php';
